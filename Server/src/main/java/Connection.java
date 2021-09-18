@@ -1,6 +1,5 @@
 import java.io.*;
 import java.net.Socket;
-import java.nio.charset.Charset;
 
 //Класс обрабатывающий все соединения и отправку сообщений
 public class Connection{
@@ -21,12 +20,6 @@ public class Connection{
                 try {
                     while (true) {
                         word = in.readLine();
-                        //Если вводят /end то пользователь вышел из чата
-                        //TODO
-                        if("/end".equals(word)){
-                            socket.close();
-                            break;
-                        }
                         logger.log(this.name + ": " +word);
                         for (Connection connection : Server.connections) {
                             connection.send(this.name + ": " +word);
@@ -44,12 +37,14 @@ public class Connection{
     }
 
     //Метод отправки сообщения
-    public void send(String message) {
+    public boolean send(String message) {
         try {
             out.write(message + "\n\r");
             out.flush();
+            return true;
         } catch (IOException ex) {
-            System.out.println(ex.getMessage());
+            logger.log(ex.getMessage());
+            return false;
         }
     }
 }

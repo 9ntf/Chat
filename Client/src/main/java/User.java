@@ -1,9 +1,5 @@
-import org.w3c.dom.ls.LSOutput;
-
-import javax.xml.transform.Source;
 import java.io.*;
 import java.net.Socket;
-import java.sql.SQLOutput;
 
 public class User {
     private Logger logger = Logger.getInstance();
@@ -12,7 +8,7 @@ public class User {
     private BufferedReader in;
     private BufferedWriter out;
 
-    //При создании экземпляра класса запускается поток Клиент
+    //При создании экземпляра класса запускается поток Клиента
     public User() {
         try {
             Socket clientSocket = new Socket(settings.getServerDNS(), settings.getServerPort());
@@ -33,12 +29,23 @@ public class User {
                     String message;
                     while (true) {
                         message = in.readLine();
+                        if ("en".equals(message)){
+                            Thread.currentThread().interrupt();
+                            clientSocket.getInputStream().close();
+                            break;
+                        }
                         //Выводим входящее собщение на экран
                         System.out.println(message);
                     }
                 } catch (IOException ex) {
                     System.out.println(ex.getMessage());
                     logger.log(ex.getMessage());
+                } finally {
+                    try {
+                        clientSocket.close();
+                    } catch (IOException ex) {
+                        logger.log(ex.getMessage());
+                    }
                 }
             }).start();
             String outMsg;

@@ -21,12 +21,14 @@ public class Logger {
     }
 
     //Метод логирующий работу программы в файл log.txt
-    public void log(String message) {
+    public boolean log(String message) {
         try (FileWriter writer = new FileWriter(logFile, true)) {
             writer.write("[" + dateFormat.format(date) + "] " + message + "\n");
             writer.flush();
+            return true;
         } catch (IOException ex) {
             log(ex.getMessage());
+            return false;
         }
     }
 }

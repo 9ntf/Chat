@@ -23,14 +23,16 @@ public class Settings {
     }
 
     //Метод получающий настройки из файла settings.txt и записывающий в объект
-    public void getSettings(File fileName) {
+    public boolean getSettings(File fileName) {
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String st = reader.readLine();
             String[] setting = st.split(" ");
             setServerDNS(setting[0]);
             setServerPort(Integer.parseInt(setting[1]));
+            return true;
         } catch (Exception ex) {
             logger.log(ex.getMessage());
+            return false;
         }
     }
 
