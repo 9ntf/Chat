@@ -8,21 +8,25 @@ import java.util.List;
 public class Server {
     private Logger logger = Logger.getInstance();
     private Settings settings = Settings.getInstance();
-    public static List<Connection> connections = new ArrayList<>();
+    private List<Connection> connections = new ArrayList<>();
 
-    //При создании экземпляра класса запускается сервер
-    public Server() {
+    //Метод стартующий сервер
+    public void start() {
         try {
-            ServerSocket serverSocket = new ServerSocket(settings.getServerPort());
+            final ServerSocket serverSocket = new ServerSocket(settings.getServerPort());
             logger.log("Server started");
             System.out.println("Server Started");
             while (true) {
-                Socket clientSocket = serverSocket.accept();
+                final Socket clientSocket = serverSocket.accept();
                 //Добавляем в коллекцию новое подключение
-                connections.add(new Connection(clientSocket));
+                connections.add(new Connection(clientSocket, this));
             }
         } catch (IOException ex) {
             logger.log(ex.getMessage());
         }
+    }
+
+    public List<Connection> getConnections() {
+        return connections;
     }
 }

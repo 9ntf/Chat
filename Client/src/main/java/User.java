@@ -11,7 +11,7 @@ public class User {
     //При создании экземпляра класса запускается поток Клиента
     public User() {
         try {
-            Socket clientSocket = new Socket(settings.getServerDNS(), settings.getServerPort());
+            final Socket clientSocket = new Socket(settings.getServerDNS(), settings.getServerPort());
             reader = new BufferedReader(new InputStreamReader(System.in));
             System.out.println("Please enter your name:");
             String name = reader.readLine();
@@ -29,9 +29,9 @@ public class User {
                     String message;
                     while (true) {
                         message = in.readLine();
-                        if ("en".equals(message)){
+                        if ("/end".equals(message)) {
                             Thread.currentThread().interrupt();
-                            clientSocket.getInputStream().close();
+                            clientSocket.close();
                             break;
                         }
                         //Выводим входящее собщение на экран

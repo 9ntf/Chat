@@ -2,13 +2,13 @@ import java.io.*;
 import java.net.Socket;
 
 //Класс обрабатывающий все соединения и отправку сообщений
-public class Connection{
+public class Connection {
     private Logger logger = Logger.getInstance();
     private BufferedReader in;
     private BufferedWriter out;
     private String name;
 
-    public Connection(Socket socket) {
+    public Connection(Socket socket, Server server) {
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -20,9 +20,9 @@ public class Connection{
                 try {
                     while (true) {
                         word = in.readLine();
-                        logger.log(this.name + ": " +word);
-                        for (Connection connection : Server.connections) {
-                            connection.send(this.name + ": " +word);
+                        logger.log(this.name + ": " + word);
+                        for (Connection connection : server.getConnections()) {
+                            connection.send(this.name + ": " + word);
                         }
                     }
                 } catch (IOException ex) {
