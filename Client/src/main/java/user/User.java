@@ -1,5 +1,9 @@
+package user;
+
 import java.io.*;
 import java.net.Socket;
+import logger.Logger;
+import settings.Settings;
 
 public class User {
     private Logger logger = Logger.getInstance();

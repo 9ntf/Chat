@@ -1,3 +1,7 @@
+package server;
+
+import logger.Logger;
+
 import java.io.*;
 import java.net.Socket;
 

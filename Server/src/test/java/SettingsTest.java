@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import settings.Settings;
 
 import java.io.*;
 
@@ -10,7 +11,7 @@ public class SettingsTest {
     @Test
     public void testSettings_success() {
         File settingsFile = new File("D:" + File.separator + "Java" + File.separator +
-                "Projects" + File.separator + "Chat" + File.separator + "Server" + File.separator + "settings.txt");
+                "Projects" + File.separator + "Chat" + File.separator + "server.Server" + File.separator + "settings.txt");
         Assertions.assertTrue(settings.getSettings(settingsFile));
     }
 
@@ -18,7 +19,7 @@ public class SettingsTest {
     @Test
     public void testSettings_param() throws IOException {
         File settingsFile = new File("D:" + File.separator + "Java" + File.separator +
-                "Projects" + File.separator + "Chat" + File.separator + "Server" + File.separator + "settings.txt");
+                "Projects" + File.separator + "Chat" + File.separator + "server.Server" + File.separator + "settings.txt");
         String expectedServerDNS = "localhost";
         int expectedServerPort = 2222;
         BufferedReader reader = new BufferedReader(new FileReader(settingsFile));

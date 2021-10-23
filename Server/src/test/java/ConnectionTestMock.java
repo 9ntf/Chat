@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import server.Connection;
 
 import java.io.IOException;
 

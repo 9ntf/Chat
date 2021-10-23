@@ -1,3 +1,8 @@
+package server;
+
+import logger.Logger;
+import settings.Settings;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,8 +19,8 @@ public class Server {
     public void start() {
         try {
             final ServerSocket serverSocket = new ServerSocket(settings.getServerPort());
-            logger.log("Server started");
-            System.out.println("Server Started");
+            logger.log("server.Server started");
+            System.out.println("server.Server Started");
             while (true) {
                 final Socket clientSocket = serverSocket.accept();
                 //Добавляем в коллекцию новое подключение
